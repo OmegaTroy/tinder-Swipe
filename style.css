@@ -1,21 +1,21 @@
 *,
 *::after,
 *::before {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  display: flex;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  user-select: none;
+  overflow: hidden;
+  background-color: #101010;
+  display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  user-select: none;
   min-height: 100vh;
-  background-color: #101010;
 }
 
 main {
@@ -24,27 +24,75 @@ main {
   width: 320px;
   height: 630px;
   display: flex;
-  position: relative;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
 section {
-  width: 84%;
+  background: #444;
+  width: 100%;
   border-radius: 32px;
   display: flex;
-  gap: 10px;
   flex-direction: column;
   overflow: hidden;
   position: relative;
   padding: 16px 6px;
   margin: 24px;
+  gap: 24px;
 }
 
 header {
   display: flex;
-  justify-content: start;
-  padding: 0 0 0 1rem;
+  justify-content: center;
+
   & img {
     width: 24px;
+    height: 24px;
+  }
+}
+
+footer {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 0 24px;
+  justify-content: center;
+
+  & button {
+    background: url("./tinder-icons.webp") no-repeat;
+    background-position: 0px 0px;
+    background-size: 170px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: scale 0.3s ease;
+
+    &:hover {
+      scale: 1.4;
+    }
+
+    &.is-big {
+      width: 48px;
+      height: 48px;
+      background-size: 261px;
+    }
+
+    &.is-undo {
+      background-position: -138px 0px;
+    }
+
+    &.is-remove {
+      background-position: -160px 0px;
+    }
+
+    &.is-star {
+      background-position: -70px 0px;
+    }
+
+    &.is-fav {
+      background-position: -53px 0px;
+    }
   }
 }
 
@@ -54,31 +102,27 @@ header {
   height: 100%;
   margin: 0 auto;
 
-  & > span {
+
+  & > span{
     display: grid;
     place-content: center;
-    color: aliceblue;
-    height: 100%;
-    font-size: 17px;
+    color: #fefefe;
+    font-size: 15px;
+    font-weight: 500;
     text-align: center;
+    height: 100%;
     z-index: -1;
   }
 
   & article {
-    border-radius: 10px;
-    cursor: grab;
-    overflow: hidden;
+    border-radius: 8px;
     position: absolute;
-    inset: 0;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     z-index: 2;
-
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    inset: 0;
+    cursor: grab;
 
     &.go-left {
       transform: translateX(-150%) rotate(-30deg) !important;
@@ -90,11 +134,11 @@ header {
 
     &.go-left,
     &.go-right {
-      transition: transform 0.3s ease;
+      transition: transform .3s ease, rotate .3s ease;
     }
 
     &.reset {
-      transition: transform 0.3s ease;
+      transition: transform .3s ease;
       transform: translateX(0) !important;
     }
 
@@ -103,14 +147,14 @@ header {
       color: black;
       border: 4px solid;
       z-index: 9999;
-      opacity: 0;
       position: absolute;
       top: 32px;
       right: 16px;
+      opacity: 0;
       padding: 4px 8px;
       font-size: 24px;
       font-weight: bold;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 0 10px rgba(0, 0, 0, .3);
       width: fit-content;
 
       &.nope {
@@ -118,6 +162,7 @@ header {
         color: #ff6e63;
         transform: rotate(30deg);
       }
+
       &.like {
         border-color: #63ff68;
         color: #63ff68;
@@ -126,67 +171,29 @@ header {
       }
     }
 
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     & h2 {
-      color: white;
-      position: absolute;
+      color: #fff;
       inset: 0;
+      position: absolute;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: flex-end;
-
-      height: 100%;
-      width: 100%;
       padding: 16px;
-      z-index: 3;
-      background: linear-gradient(to top, #00000088 20%, transparent 40%);
+      background: linear-gradient(0deg, #00000088 20%, transparent 40%);
     }
     & span {
       margin-left: 6px;
       font-size: 18px;
       line-height: 1.4;
       font-weight: 400;
-    }
-  }
-}
-
-footer {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  padding: 0 24px;
-  justify-content: center;
-  align-items: center;
-
-  & button {
-    background: url("./tinder-icons.webp") no-repeat;
-    background-position: 0 0;
-    background-size: 175px;
-    border-radius: 50%;
-    border: 0;
-    height: 32px;
-    width: 32px;
-    cursor: pointer;
-    transition: scale 0.3s ease;
-    box-shadow: 0 15px 9px -7px #000;
-    &:hover {
-      scale: 1.4;
-    }
-
-    &.is-big {
-      background-size: 250px;
-      height: 42px;
-      width: 42px;
-    }
-    &.is-undo {
-      background-position: -142px;
-    }
-    &.is-remove {
-      background-position: -154px;
-    }
-    &.is-fav {
-      background-position: -52px;
-    }
-    &.is-star {
-      background-position: -71px;
     }
   }
 }
